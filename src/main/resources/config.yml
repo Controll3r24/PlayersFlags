@@ -1,0 +1,113 @@
+# ============================================================
+#  Players Flag - by Controll3r24
+#  Tutto e' customizzabile. Dopo le modifiche usa: /pf reload
+#  Nei testi puoi usare MiniMessage (https://docs.advntr.dev/minimessage)
+#  e il tag speciale <gg>testo</gg> = oro sfumato (colori sotto).
+# ============================================================
+
+style:
+  # Colori del gradiente oro (minimo 2, puoi metterne quanti vuoi)
+  gradient: ["#FFF3B0", "#FFD700", "#B8860B"]
+  prefix: "<gg><bold>[Players Flag]</bold></gg> "
+
+# ------------------------------------------------------------
+# Come viene mostrata la bandiera
+# ------------------------------------------------------------
+head:
+  # %value% viene sostituito col valore messo in "flags" qui sotto.
+  # Il tag <head:...> accetta: nome player, UUID, URL della texture o texture base64.
+  # Se vuoi anche il secondo strato della skin: "<head:%value%:true>"
+  format: "<head:%value%>"
+
+fallback:
+  # Se per un paese NON hai messo la testa in "flags", usa la bandiera emoji (es. IT)
+  emoji: true
+  # Testo mostrato se il paese e' sconosciuto
+  unknown-text: "<gray>?</gray>"
+
+# ------------------------------------------------------------
+# Teste delle bandiere: CODICE_PAESE: valore per <head:...>
+# Esempio (metti i TUOI valori presi dalla guida / minecraft-heads):
+#   IT: "valore-della-testa-italia"
+#   US: "valore-della-testa-usa"
+# ------------------------------------------------------------
+flags: {}
+
+# ------------------------------------------------------------
+# Geolocalizzazione IP
+# ------------------------------------------------------------
+geolocation:
+  enabled: true
+  # %ip% viene sostituito con l'IP del player. Deve rispondere con JSON contenente "countryCode"
+  provider-url: "http://ip-api.com/json/%ip%?fields=status,countryCode"
+  timeout-seconds: 5
+  # Pausa tra una richiesta e l'altra (ip-api gratuito: max 45 richieste/minuto)
+  request-delay-ms: 1500
+  # Dopo quanti giorni rifare la ricerca per lo stesso player
+  cache-days: 30
+  # Codice usato per IP locali/non trovati (es. "IT"), vuoto = sconosciuto
+  default-flag-code: ""
+
+# ------------------------------------------------------------
+# Placeholder PlaceholderAPI
+#   %playersflag_flag%  %playersflag_flag_code%  %playersflag_flag_country%  %playersflag_flag_emoji%
+#   %player_flag%       (stessi suffissi: flag_code, flag_country, flag_emoji)
+# ------------------------------------------------------------
+placeholder:
+  # %player_flag% usa l'identificatore "player" che e' gia' dell'espansione Player di PAPI.
+  # Con true Players Flag prova a "affiancarsi" e a inoltrare tutti gli altri %player_*% all'originale.
+  override-player: true
+
+country-names-language: "en"
+
+list:
+  per-page: 15
+  entry: "{flag} <gg>{code}</gg> <gray>-</gray> <white>{country}</white>{mark}"
+  mark-configured: " <green>(testa)</green>"
+
+# ------------------------------------------------------------
+# Messaggio di benvenuto per l'amministratore (solo la PRIMA volta)
+# ------------------------------------------------------------
+welcome:
+  enabled: true
+  permission: "playersflag.admin"
+  also-ops: true
+  delay-ticks: 40
+  # Placeholder: {player} {version} {author}
+  lines:
+    - "<gg>--------------------------------------------------</gg>"
+    - "<gg><bold>Welcome to Players Flag!</bold></gg>"
+    - ""
+    - "<gg>Ciao {player}, grazie per aver installato Players Flag v{version}.</gg>"
+    - "<gg>Il plugin riconosce il paese dei giocatori dal loro IP</gg>"
+    - "<gg>e mostra la bandiera con %player_flag%.</gg>"
+    - ""
+    - "<gg>Comandi: /pf help  |  /pf list  |  /pf reload</gg>"
+    - "<gg>Autore: {author}</gg>"
+    - "<gg>--------------------------------------------------</gg>"
+
+# ------------------------------------------------------------
+# Messaggi (il prefisso viene aggiunto davanti automaticamente)
+# ------------------------------------------------------------
+messages:
+  no-permission: "<red>Non hai il permesso.</red>"
+  reloaded: "<gg>Configurazione ricaricata.</gg>"
+  player-not-found: "<red>Player non trovato: {name}</red>"
+  invalid-code: "<red>Codice paese non valido: {code} (es. IT, US, DE)</red>"
+  console-needs-player: "<red>Da console devi indicare un player.</red>"
+  info: "<gg>{player}:</gg> {flag} <gray>({code} - {country})</gray>{manual}"
+  info-manual: " <yellow>[manuale]</yellow>"
+  set-ok: "<gg>Bandiera di {player} impostata su</gg> {flag} <gray>({code})</gray>"
+  reset-ok: "<gg>Bandiera di {player} ripristinata (verra' ricalcolata dall'IP).</gg>"
+  refresh-ok: "<gg>Ricerca IP avviata per {player}.</gg>"
+  list-header: "<gg><bold>Bandiere</bold> - pagina {page}/{pages}</gg>"
+  list-footer: "<gray>Usa /pf list <numero> per cambiare pagina.</gray>"
+  help:
+    - "<gg><bold>Players Flag</bold> - comandi</gg>"
+    - "<gg>/pf list [pagina]</gg> <gray>- lista di tutte le bandiere</gray>"
+    - "<gg>/pf info [player]</gg> <gray>- bandiera di un player</gray>"
+    - "<gg>/pf reload</gg> <gray>- ricarica la config</gray>"
+    - "<gg>/pf set <player> <codice></gg> <gray>- imposta a mano</gray>"
+    - "<gg>/pf reset <player></gg> <gray>- torna all'automatico</gray>"
+    - "<gg>/pf refresh <player></gg> <gray>- rifa' la ricerca IP</gray>"
+    - "<gg>/pf welcome</gg> <gray>- mostra il messaggio di benvenuto</gray>"

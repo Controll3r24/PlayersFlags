@@ -1,0 +1,19 @@
+name: PlayersFlag
+version: ${version}
+main: it.controll3r24.playersflag.PlayersFlagPlugin
+api-version: '26.2'
+authors: [Controll3r24]
+description: Mostra la bandiera dei player in base all'IP (placeholder %player_flag%)
+softdepend: [PlaceholderAPI]
+commands:
+  pf:
+    description: Comando principale di Players Flag
+    usage: /pf help
+    aliases: [playersflag]
+permissions:
+  playersflag.use:
+    description: Usare /pf help, /pf list e /pf info
+    default: true
+  playersflag.admin:
+    description: Reload, set, reset, refresh, welcome
+    default: op
